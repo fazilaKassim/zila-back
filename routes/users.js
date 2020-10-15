@@ -4,6 +4,7 @@ const bodyParser = require("body-parser")
 const bcrypt = require("bcryptjs")
 const auth = require('../auth')
 
+
 const UserModel = require('../models/User');
 /* GET home page. */
 // router.get('/', function(req, res, next) {
@@ -34,7 +35,7 @@ router.post('/inscription', async (req, res, next) => {
 });
 
 router.get("/get-user-by-token", (req, res) => {
-  // console.log("helooooooo");
+  console.log("helooooooo", req.header("x-authenticate"));
   try {
     // console.log("HEADER AUTHENCICATE",req.header("x-authenticate"))
     const user = auth.decodeToken(req.header("x-authenticate"));
@@ -56,6 +57,7 @@ router.post("/connexion", async (req, res, next) => {
       msg: "Identifiants incorrects",
       level: "error",
     });
+    req.flash(" !");
   }
 
   // si oui : vérifier que mail et mdp correspondent en bdd

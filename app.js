@@ -4,10 +4,15 @@ const cors = require('cors')
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+var flash = require('connect-flash');
 
 const app = express();
 // CORS SETUP
 app.use(cors(process.env.FRONT_URL));
+
+
+// flash
+app.use(flash());
 
 // POST SETUP
 app.use(express.json());
