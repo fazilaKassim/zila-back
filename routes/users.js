@@ -35,7 +35,7 @@ router.post('/inscription', async (req, res, next) => {
 });
 
 router.get("/get-user-by-token", (req, res) => {
-  console.log("helooooooo", req.header("x-authenticate"));
+  // console.log("helooooooo", req.header("x-authenticate"));
   try {
     // console.log("HEADER AUTHENCICATE",req.header("x-authenticate"))
     const user = auth.decodeToken(req.header("x-authenticate"));
