@@ -103,11 +103,28 @@ router.post("/connexion", async (req, res, next) => {
 });
 
 
-router.patch("/:id", async (req, res, next) => {
+router.patch("/update/:id", async (req, res, next) => {
   try {
     const user = await UserModel.findByIdAndUpdate(
       req.params.id, // req.params.id correspond à l'id passé en URL
       req.body, // les données de mise à jour
+      { new: true } // cette option est requise si vous souhaitez récupérer le document mis à jour, sinon, l'ancienne version est retournée par défaut
+    );
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.patch("/updateMotDePasse/:id", async (req, res, next) => {
+  try {
+
+    const salt = bcrypt.genSaltSync(10);
+    const hashed = bcrypt.hashSync(req.body.password, salt);
+    const nouveauMotDePasse = hashed;
+    const user = await UserModel.findByIdAndUpdate(
+      req.params.id, // req.params.id correspond à l'id passé en URL
+      {password : nouveauMotDePasse}, // les données de mise à jour
       { new: true } // cette option est requise si vous souhaitez récupérer le document mis à jour, sinon, l'ancienne version est retournée par défaut
     );
     res.json(user);

@@ -11,6 +11,13 @@ router.get("/", (req, res) => {
     })
 })
 
+router.get("/:id", (req, res) => {
+  modelProduit.findById(req.params.id)
+  .then(Produit => {
+      res.json(Produit)
+  })
+})
+
 router.post("/", (req, res) => {
     modelProduit.create(req.body)
     .then(Produit => {
